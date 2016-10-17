@@ -5,5 +5,24 @@
    user.name
    user.email
 5. How to configure gir ignored file patterns?
-
-
+6. Where is git configuration files?
+   .gitignore
+   .gitconfig
+7. What is the lifecycle of a file status in git?
+   untracked, modified, staged, unmodified
+8. How to show a file history?
+   git log
+9. How to show git working directory status?
+   git status
+10. How to stage and unstage a file?
+    git add <file>
+    git reset HEEAD <file>
+11. How to discard a file changes?
+    git checkout <file>
+12. How to show remote?
+    git remote -v
+    git remote show <remote name>
+13. How to list tags?
+    git tag
+    git tag -l <tag pattern>
+14. Can you checkout based on a tag rather than a branch?
