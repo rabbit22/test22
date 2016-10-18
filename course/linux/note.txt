@@ -1,0 +1,11 @@
+1. If not then you should send the process to background, and then disown it..
+ 
+Use the following sequence:
+ 
+# Suspend the active process
+CTRL+Z
+# Resume the process in the background
+bg
+# Disown the process so that it will not receive a SIGHUP when you terminate your shell
+disown
+
