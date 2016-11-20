@@ -26,3 +26,7 @@
     git tag
     git tag -l <tag pattern>
 14. Can you checkout based on a tag rather than a branch?
+15. How to setup git command alias?
+    git config --global alias.co checkout
+16. How to show last 10 commits?
+    git log -10
