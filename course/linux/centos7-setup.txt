@@ -103,4 +103,61 @@ vagrant init centos/7
 vagrant up
 3.4 login
 vagrant ssh
+3.5 install vagrant plugin
+vagrant plugin install vagrant-timezone
+vagrant plugin list
 
+
+
+Example of Vagrantfile which defines 4 servers with public and private network. Vagrant always setup a NAT network.
+-----------------------------
+Vagrant.configure("2") do |config|
+
+  # set timezone
+  if Vagrant.has_plugin?("vagrant-timezone")
+    config.timezone.value = "EST"
+  end
+
+  config.vm.define "elk01" do |elk01|
+     elk01.vm.hostname = "elk01"
+     elk01.vm.box = "centos/7"
+     elk01.vm.network "public_network", ip: "192.168.0.101", bridge: "enp8s0"
+     elk01.vm.network "private_network", ip: "10.0.0.101"
+     elk01.vm.provider "virtualbox" do |v|
+       v.memory = 2048
+     end
+
+  end
+
+  config.vm.define "elk02" do |elk02|
+     elk02.vm.hostname = "elk02"
+     elk02.vm.box = "centos/7"
+     elk02.vm.network "public_network", ip: "192.168.0.102", bridge: "enp8s0"
+     elk02.vm.network "private_network", ip: "10.0.0.102"
+     elk02.vm.provider "virtualbox" do |v|
+       v.memory = 2048
+     end
+  end
+
+  config.vm.define "elk03" do |elk03|
+     elk03.vm.hostname = "elk03"
+     elk03.vm.box = "centos/7"
+     elk03.vm.network "public_network", ip: "192.168.0.103", bridge: "enp8s0"
+     elk03.vm.network "private_network", ip: "10.0.0.103"
+     elk03.vm.provider "virtualbox" do |v|
+       v.memory = 2048
+     end
+  end
+
+  config.vm.define "elk04" do |elk04|
+     elk04.vm.hostname = "elk04"
+     elk04.vm.box = "centos/7"
+     elk04.vm.network "public_network", ip: "192.168.0.104", bridge: "enp8s0"
+     elk04.vm.network "private_network", ip: "10.0.0.104"
+     elk04.vm.provider "virtualbox" do |v|
+       v.memory = 2048
+     end
+  end
+
+end
+-----------------------------------------------
