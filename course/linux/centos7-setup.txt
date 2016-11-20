@@ -1,0 +1,79 @@
+1. Configure a Static IP Address without Network Manager
+Note: your private network is 192.168.0.1/24
+
+1.1 list devices
+nmcli dev status
+
+1.2 edit device config
+vi /etc/sysconfig/network-scripts/ifcfg-<device name>
+BOOTPROTO=static
+ONBOOT=yes
+NM_CONTROLLED=no
+IPADDR=192.168.0.201
+NETMASK=255.255.255.0
+GATEWAY=192.168.0.1
+
+1.3 restart network service
+systemctl restart network.service
+ifconfig
+
+1.4 add DNS server
+vi /etc/resolv.conf
+
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+
+ping 192.168.0.1
+ping www.google.com
+
+
+2. Upgrade to latest patches
+sudo yum -y update
+
+
+3. add disk
+3.1 make partition
+3.2 make file system on partition
+3.3 mount file system
+cd /mnt
+mkdir data1 data2
+
+vi /etc/fstab
+
+/dev/sda1       /mnt/data1      ext4    defaults        0 0
+/dev/sda2       /mnt/data2      ext4    defaults        0 0
+
+reboot
+
+
+
+
+1. Installing virtualbox as a vagrant provider on centos 7
+cd /etc/yum.repos.d
+wget http://download.virtualbox.org/virtualbox/rpm/rhel/virtualbox.repo
+
+yum install epel-release
+yum install dkms
+
+yum provides virtualbox
+yum install VirtualBox-5.1-5.1.6_110634_el7-1
+
+
+2. install vagrant on centos 7
+2.1 download RPM
+wget https://releases.hashicorp.com/vagrant/1.8.7/vagrant_1.8.7_x86_64.rpm
+yum localinstall vagrant_1.8.7_x86_64.rpm
+
+
+3. create centos 7 VM
+3.1 add box
+vagrant box add centos/7
+3.2 init 
+mkdir test
+cd test
+vagrant init centos/7
+3.3 build and startup
+vagrant up
+3.4 login
+vagrant ssh
+
