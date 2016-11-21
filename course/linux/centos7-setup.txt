@@ -161,3 +161,29 @@ Vagrant.configure("2") do |config|
 
 end
 -----------------------------------------------
+
+
+
+1. Ansible with Vagrant
+1.1 install anisble
+sudo yum -y install ansible
+1.2 prepare playbox
+  config.vm.provision :ansible do |ansible|
+     ansible.playbook = "test.yml"
+
+  test.yml
+  ----------------
+  ---
+- hosts: all
+  become: yes
+  become_user: root
+  tasks:
+  - name: Install Apache
+    yum: name=httpd state=latest
+  - name: Start the Apache server
+    service: name=httpd state=started
+
+	
+1.3 run provision
+vagrant provision
+
